@@ -266,10 +266,10 @@
       where: 'Posted on freeway off-ramps facing drivers who entered going the wrong direction, often paired with Do Not Enter.',
       expected: ['Stop as safely as possible.', 'Turn around (in many cases the safest action is to back up off the ramp).', 'Turn on hazard lights to alert other drivers.'],
       mistakes: ['Continuing forward hoping it is a mistake — head-on collisions on freeways are often fatal.', 'Trying to U-turn into oncoming highway traffic.'],
-      design: 'Red rectangle with white text is large, contrasting, and meant to break a driver out of inattention.',
-      render: () => plate.rectV(C.red,
-        txt(50, 42, 'WRONG', { size: 16, color: C.white, family: 'Arial Black' }) +
-        txt(50, 64, 'WAY', { size: 16, color: C.white, family: 'Arial Black' })),
+      design: 'Horizontal red rectangle with white text — large, contrasting, and meant to break a driver out of inattention.',
+      render: () => plate.rectH(C.red,
+        txt(50, 44, 'WRONG', { size: 15, color: C.white, family: 'Arial Black' }) +
+        txt(50, 68, 'WAY', { size: 15, color: C.white, family: 'Arial Black' })),
     },
     {
       id: 'one-way', name: 'One Way', category: 'regulatory', scenario: 'wrong-way',
@@ -338,10 +338,8 @@
       where: 'Two-lane rural highways approaching curves, hills, intersections, or other places with limited sight distance.',
       expected: ['Do not move into the oncoming lane to pass.', 'Wait for a passing zone (broken yellow line) before attempting to pass.'],
       mistakes: ['Passing on a hill where oncoming traffic is hidden — head-on collisions are often fatal.', 'Confusing the warning pennant with a yield sign.'],
-      design: 'A unique pennant shape — pointing right — distinguishes this from any other sign and is placed on the left side of the road.',
-      render: () => plate.pennant(
-        txt(38, 46, 'NO', { size: 10, color: C.black, family: 'Arial Black' }) +
-        txt(38, 60, 'PASSING', { size: 9, color: C.black, family: 'Arial Black' })),
+      design: 'A unique horizontal pennant shape — pointing right — distinguishes this from any other sign. The MUTCD pennant carries no text; the shape itself is the message, and it is placed on the left side of the road.',
+      render: () => plate.pennant(''),
     },
     {
       id: 'keep-right', name: 'Keep Right', category: 'regulatory', scenario: 'wrong-way',
@@ -370,10 +368,11 @@
       where: 'Multi-lane streets through commercial corridors with many driveways.',
       expected: ['Use the center lane only to turn left across oncoming traffic.', 'Do not travel in the lane.', 'Yield to oncoming traffic also turning left into the same lane.'],
       mistakes: ['Treating the center lane as a passing lane.', 'Making a left turn from the wrong lane.'],
-      design: 'White plate showing two opposing left-turn arrows.',
+      design: 'White plate showing two opposing left-turn arrows above "CENTER LANE" text — the lane is shared by both directions for left turns only.',
       render: () => plate.rectV(C.white,
-        `<g transform="translate(50,40)">${icon.leftTurn(0, 0)}</g>` +
-        `<g transform="translate(50,72) scale(-1,1)">${icon.leftTurn(0, 0)}</g>`),
+        `<g transform="translate(50,32)">${icon.leftTurn(0, 0)}</g>` +
+        `<g transform="translate(50,62) scale(-1,1)">${icon.leftTurn(0, 0)}</g>` +
+        txt(50, 86, 'CENTER LANE', { size: 8.5, color: C.black, family: 'Arial Black' })),
     },
     {
       id: 'handicapped-parking', name: 'Handicapped Parking', category: 'regulatory', scenario: 'speed-trap',
@@ -419,9 +418,9 @@
       where: 'Mountain highways, freeway descents.',
       expected: ['Engage a lower gear before descending.', 'Avoid riding the brakes — they can overheat and fail.'],
       mistakes: ['Descending in neutral or with continuous brake pressure.', 'Tailgating slower trucks.'],
-      design: 'Yellow diamond showing a downhill slope with the grade percentage.',
+      design: 'Yellow diamond showing a road descending from upper-left to lower-right, with the grade percentage.',
       render: () => plate.diamond(C.yellow,
-        `<polygon points="20,68 80,68 80,30" fill="${C.black}"/>
+        `<polygon points="20,30 20,68 80,68" fill="${C.black}"/>
          ${txt(50, 86, '7%', { size: 14, color: C.black, family: 'Arial Black' })}`),
     },
     {
@@ -517,11 +516,11 @@
       where: 'Highway construction zones, end of acceleration lanes, road narrows after bridges.',
       expected: ['Match speed with the continuing lane.', 'Use turn signal and merge in a smooth gap.', 'If you are in the continuing lane, allow others to merge — alternate (zipper) merging.'],
       mistakes: ['Speeding up to block a merging vehicle.', 'Last-second merges that force others to brake.'],
-      design: 'Yellow diamond showing two converging lane lines.',
+      design: 'Yellow diamond showing the right lane curving into a continuing straight lane on the left.',
       render: () => plate.diamond(C.yellow,
         `<g stroke="${C.black}" stroke-width="6" fill="none" stroke-linecap="round">
-           <path d="M 36 84 L 36 50 Q 36 34 50 28"/>
-           <path d="M 64 84 L 64 50 Q 64 34 50 28"/>
+           <path d="M 42 84 L 42 24"/>
+           <path d="M 64 84 L 64 50 Q 64 28 42 24"/>
          </g>`),
     },
     {
@@ -558,12 +557,16 @@
       where: 'Active rail lines that intersect public roads.',
       expected: ['Slow down and look both ways.', 'Stop if a train is approaching, lights flash, or gates lower.', 'Never stop on the tracks themselves.', 'Wait until the gate fully raises before crossing.'],
       mistakes: ['Trying to beat the gate.', 'Stopping on the tracks at a red light past the crossing.', 'Driving around lowered gates — illegal and almost always lethal.'],
-      design: 'White X-shaped crossbuck with "RAILROAD CROSSING" lettering. A round yellow advance sign with "RR" precedes it.',
-      render: () => plate.crossbuck(
-        `${txt(50, 47, 'RAIL', { size: 7, color: C.black, family: 'Arial Black' })}
-         ${txt(50, 56, 'ROAD', { size: 7, color: C.black, family: 'Arial Black' })}
-         ${txt(28, 30, 'X', { size: 12, color: C.black, family: 'Arial Black' })}
-         ${txt(72, 76, 'X', { size: 12, color: C.black, family: 'Arial Black' })}`),
+      design: 'Two white boards crossed in an X. "RAILROAD" runs along one board, "CROSSING" along the other. A round yellow advance sign with "RR" precedes it.',
+      render: () => svg(
+        `<g transform="translate(50,50) rotate(45)">
+           <rect x="-46" y="-9" width="92" height="18" fill="${C.white}" stroke="${C.black}" stroke-width="2"/>
+           <text x="0" y="3.5" text-anchor="middle" fill="${C.black}" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="10" letter-spacing="1.5">RAILROAD</text>
+         </g>
+         <g transform="translate(50,50) rotate(-45)">
+           <rect x="-46" y="-9" width="92" height="18" fill="${C.white}" stroke="${C.black}" stroke-width="2"/>
+           <text x="0" y="3.5" text-anchor="middle" fill="${C.black}" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="10" letter-spacing="1.5">CROSSING</text>
+         </g>`),
     },
     {
       id: 'railroad-advance', name: 'Railroad Advance Warning', category: 'warning', scenario: 'railroad',
@@ -674,11 +677,25 @@
       where: 'Single-lane construction sections, utility work, accident scenes.',
       expected: ['Slow down and prepare to stop.', 'Obey the flagger — their direction overrides any signal or sign.'],
       mistakes: ['Ignoring the flagger because the road appears clear.', 'Driving past after a "SLOW" sign without checking traffic ahead.'],
-      design: 'Orange diamond with a worker silhouette holding a flag.',
+      design: 'Orange diamond with a worker silhouette holding a flag (no shovel — that is the road-work worker).',
       render: () => plate.diamond(C.orange,
-        icon.worker(46, 56, C.black) +
-        `<rect x="58" y="22" width="14" height="14" fill="${C.red}" stroke="${C.black}" stroke-width="2"/>
-         <line x1="58" y1="22" x2="58" y2="60" stroke="${C.black}" stroke-width="2"/>`),
+        `<g transform="translate(42,52)" fill="${C.black}">
+           <!-- hardhat brim -->
+           <path d="M -8 -22 Q -8 -29 0 -29 Q 8 -29 8 -22 L 10 -20 L -10 -20 Z"/>
+           <!-- head -->
+           <circle cx="0" cy="-14" r="5"/>
+           <!-- torso (shoulders to waist) -->
+           <path d="M -9 -9 L 9 -9 L 11 8 L 4 8 L 2 -2 L -2 -2 L -4 8 L -11 8 Z"/>
+           <!-- legs -->
+           <rect x="-7" y="6" width="5" height="16"/>
+           <rect x="2" y="6" width="5" height="16"/>
+           <!-- arm extending to flag pole -->
+           <rect x="6" y="-7" width="14" height="3.5"/>
+         </g>
+         <!-- flag pole -->
+         <line x1="62" y1="20" x2="62" y2="80" stroke="${C.black}" stroke-width="3"/>
+         <!-- red flag -->
+         <path d="M 62 22 L 80 22 L 76 30 L 80 38 L 62 38 Z" fill="${C.red}" stroke="${C.black}" stroke-width="2" stroke-linejoin="round"/>`),
     },
     {
       id: 'detour', name: 'Detour', category: 'construction', scenario: 'wrong-way',

@@ -1,8 +1,21 @@
 # Sign School
 
-An interactive web tool that teaches U.S. street signs — what each one means, what it expects from you, and what happens when drivers ignore them.
+An interactive web tool that introduces U.S. street signs — what each one means, what it expects from you, and what happens when drivers ignore them.
 
 **[▶ Try it live](https://joeferrara.github.io/sign-school/)**
+
+> ## ⚠️ Important: this is an entertainment / educational toy, not a study tool
+>
+> **Do not use Sign School to study for a driver's permit, driver's license exam, or any licensing test. Do not use it as a substitute for driver's education.** This project is a hobby learning toy, intended for entertainment and casual familiarization with how U.S. road signs look and what they generally mean.
+>
+> Specifically:
+>
+> - **Sign artwork is hand-drawn and simplified.** It is not a faithful reproduction of the official MUTCD specification. Shapes, proportions, glyphs, and text are approximations.
+> - **Information has not been formally reviewed** by a licensed driving instructor, traffic engineer, or DMV authority. Wording in the "meaning," "expected," and "common mistakes" sections reflects general public knowledge and may contain inaccuracies, oversimplifications, regional bias, or outright errors.
+> - **Rules of the road vary by state.** State-specific exceptions, fines, time-of-day qualifiers, and pedestrian-priority rules are not represented here.
+> - **The simulator's outcomes are dramatized.** The "random chance" of a crash or pull-over is for engagement, not a real statistical model of risk.
+>
+> **For authoritative information, always consult your state DMV handbook, an accredited driving school, or a licensed instructor.** If you spot incorrect information here, please [open an issue](https://github.com/JoeFerrara/sign-school/issues) or send a pull request — see Contributing below.
 
 ## What it does
 
@@ -75,4 +88,8 @@ No issue template, no CLA, no review checklist — just clear changes with enoug
 
 ## Disclaimer
 
-Sign School is an educational tool. Sign artwork is simplified for clarity and may not match every state's exact design. Always consult your state DMV handbook for the authoritative rules of the road.
+Sign School is a hobby project intended for entertainment and casual familiarization. It has **not** been verified by any licensed driving instructor, traffic engineer, or state DMV. Sign artwork is simplified, the written explanations may contain inaccuracies, and the simulator outcomes are dramatized for engagement.
+
+**Do not rely on this tool for driver's education, licensing exam preparation, or any safety-critical decision.** Always consult your state DMV handbook or an accredited driving school for the authoritative rules of the road.
+
+The authors and contributors disclaim any liability for actions taken based on the content of this site.

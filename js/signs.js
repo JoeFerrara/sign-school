@@ -68,10 +68,12 @@
        ${inner}`),
   };
 
-  // Common content snippets
+  // Common content snippets — default to Overpass (an open Highway-Gothic-style face)
+  // with Arial Black as a fallback so canvas renders without the web font still look bold.
   const txt = (x, y, t, opts = {}) => {
-    const { size = 14, color = C.black, weight = 700, anchor = 'middle', family = 'Arial Black, Arial, sans-serif', letterSpacing = 0 } = opts;
-    return `<text x="${x}" y="${y}" text-anchor="${anchor}" fill="${color}" font-family="${family}" font-weight="${weight}" font-size="${size}" letter-spacing="${letterSpacing}">${t}</text>`;
+    const { size = 14, color = C.black, weight = 800, anchor = 'middle',
+      family = '"Overpass", "Arial Black", Arial, sans-serif', letterSpacing = 0 } = opts;
+    return `<text x="${x}" y="${y}" text-anchor="${anchor}" fill="${color}" font-family='${family}' font-weight="${weight}" font-size="${size}" letter-spacing="${letterSpacing}">${t}</text>`;
   };
 
   // "No" overlay: red circle + slash (for prohibitive signs)
@@ -265,7 +267,7 @@
       expected: ['Come to a complete stop — wheels not moving.', 'Stop at the painted line; if none, before the crosswalk; if none, before the intersection.', 'Yield to pedestrians and any cross traffic that has the right of way.', 'Proceed only when the path is clearly safe.'],
       mistakes: ['Performing a "California roll" — slowing without stopping.', 'Stopping past the line, blocking the crosswalk.', 'Assuming a 4-way stop is "first to arrive, first to go" without watching for cross traffic.'],
       design: 'The octagon shape is unique to stop signs so drivers can recognize it from the back or in poor visibility. Red signals required action.',
-      render: () => plate.octagon(txt(50, 60, 'STOP', { size: 28, color: C.white, family: 'Arial Black', letterSpacing: 1 })),
+      render: () => plate.octagon(txt(50, 60, 'STOP', { size: 28, color: C.white, letterSpacing: 1 })),
     },
     {
       id: 'yield', name: 'Yield', category: 'regulatory', scenario: 'intersection-yield',
@@ -274,7 +276,7 @@
       expected: ['Reduce speed as you approach.', 'Be ready to stop completely if traffic requires it.', 'Yield to all cross or merging traffic and pedestrians.', 'Enter the road only when there is a safe gap.'],
       mistakes: ['Treating yield as "merge at speed" — entering without checking traffic.', 'Stopping on the ramp when traffic is clear (this can cause rear-ends).', 'Forgetting that pedestrians always have priority.'],
       design: 'The downward-pointing triangle is unique to yield signs so it is recognizable from any angle.',
-      render: () => plate.yieldTri(txt(50, 70, 'YIELD', { size: 13, color: C.red, family: 'Arial Black' })),
+      render: () => plate.yieldTri(txt(50, 66, 'YIELD', { size: 14, color: C.red, letterSpacing: 0.5 })),
     },
     {
       id: 'do-not-enter', name: 'Do Not Enter', category: 'regulatory', scenario: 'wrong-way',
@@ -285,7 +287,7 @@
       design: 'A solid red square with a bold white horizontal bar is visible at long range and unmistakable even at speed.',
       render: () => plate.rectV(C.red,
         `<rect x="14" y="42" width="72" height="14" fill="${C.white}"/>
-         ${txt(50, 80, 'DO NOT ENTER', { size: 8.5, color: C.white, family: 'Arial Black' })}`),
+         ${txt(50, 80, 'DO NOT ENTER', { size: 8.5, color: C.white })}`),
     },
     {
       id: 'wrong-way', name: 'Wrong Way', category: 'regulatory', scenario: 'wrong-way',
@@ -295,8 +297,8 @@
       mistakes: ['Continuing forward hoping it is a mistake — head-on collisions on freeways are often fatal.', 'Trying to U-turn into oncoming highway traffic.'],
       design: 'Horizontal red rectangle with white text — large, contrasting, and meant to break a driver out of inattention.',
       render: () => plate.rectH(C.red,
-        txt(50, 44, 'WRONG', { size: 15, color: C.white, family: 'Arial Black' }) +
-        txt(50, 68, 'WAY', { size: 15, color: C.white, family: 'Arial Black' })),
+        txt(50, 44, 'WRONG', { size: 15, color: C.white }) +
+        txt(50, 68, 'WAY', { size: 15, color: C.white })),
     },
     {
       id: 'one-way', name: 'One Way', category: 'regulatory', scenario: 'wrong-way',
@@ -307,7 +309,7 @@
       design: 'Black background with white arrow keeps the directional message obvious from any angle.',
       render: () => plate.rectH(C.black,
         icon.arrowRight(50, 50, 1.6, C.white) +
-        txt(50, 76, 'ONE WAY', { size: 8.5, color: C.white, family: 'Arial Black' })),
+        txt(50, 76, 'ONE WAY', { size: 8.5, color: C.white })),
     },
     {
       id: 'speed-limit', name: 'Speed Limit', category: 'regulatory', scenario: 'speed-trap',
@@ -317,9 +319,9 @@
       mistakes: ['Treating the limit as a target rather than a maximum.', 'Speeding in school zones — fines often double.', 'Assuming "with the flow of traffic" is a legal defense (it is not).'],
       design: 'White rectangle with black text is the standard for regulatory speed messages, prioritizing readability.',
       render: () => plate.rectV(C.white,
-        txt(50, 26, 'SPEED', { size: 13, color: C.black, family: 'Arial Black' }) +
-        txt(50, 44, 'LIMIT', { size: 13, color: C.black, family: 'Arial Black' }) +
-        txt(50, 78, '35', { size: 36, color: C.black, family: 'Arial Black', letterSpacing: 1 })),
+        txt(50, 26, 'SPEED', { size: 13, color: C.black }) +
+        txt(50, 44, 'LIMIT', { size: 13, color: C.black }) +
+        txt(50, 78, '35', { size: 36, color: C.black, letterSpacing: 1 })),
     },
     {
       id: 'no-u-turn', name: 'No U-Turn', category: 'regulatory', scenario: 'wrong-way',
@@ -356,7 +358,7 @@
       mistakes: ['Parking "just for a minute" in a fire lane — towed vehicles take hours and hundreds of dollars to recover.', 'Ignoring street-cleaning day signs.'],
       design: 'White plate with a bold red "P" inside the red circle/slash.',
       render: () => plate.rectV(C.white,
-        txt(50, 64, 'P', { size: 56, color: C.black, family: 'Arial Black' }) +
+        txt(50, 64, 'P', { size: 56, color: C.black }) +
         noOverlay),
     },
     {
@@ -385,9 +387,9 @@
       mistakes: ['Inching forward into the crosswalk while waiting.', 'Stopping past sensors so the signal never changes.'],
       design: 'Vertical white plate with simple text — placed exactly at the stop line.',
       render: () => plate.rectV(C.white,
-        txt(50, 28, 'STOP', { size: 13, color: C.black, family: 'Arial Black' }) +
-        txt(50, 46, 'HERE ON', { size: 11, color: C.black, family: 'Arial Black' }) +
-        txt(50, 70, 'RED', { size: 18, color: C.red, family: 'Arial Black' })),
+        txt(50, 28, 'STOP', { size: 13, color: C.black }) +
+        txt(50, 46, 'HERE ON', { size: 11, color: C.black }) +
+        txt(50, 70, 'RED', { size: 18, color: C.red })),
     },
     {
       id: 'two-way-left-turn', name: 'Two-Way Left Turn Lane', category: 'regulatory', scenario: 'wrong-way',
@@ -399,7 +401,7 @@
       render: () => plate.rectV(C.white,
         `<g transform="translate(50,32)">${icon.leftTurn(0, 0)}</g>` +
         `<g transform="translate(50,62) scale(-1,1)">${icon.leftTurn(0, 0)}</g>` +
-        txt(50, 86, 'CENTER LANE', { size: 8.5, color: C.black, family: 'Arial Black' })),
+        txt(50, 86, 'CENTER LANE', { size: 8.5, color: C.black })),
     },
     {
       id: 'handicapped-parking', name: 'Handicapped Parking', category: 'regulatory', scenario: 'speed-trap',
@@ -448,7 +450,7 @@
       design: 'Yellow diamond showing a road descending from upper-left to lower-right, with the grade percentage.',
       render: () => plate.diamond(C.yellow,
         `<polygon points="20,30 20,68 80,68" fill="${C.black}"/>
-         ${txt(50, 86, '7%', { size: 14, color: C.black, family: 'Arial Black' })}`),
+         ${txt(50, 86, '7%', { size: 14, color: C.black })}`),
     },
     {
       id: 'slippery-when-wet', name: 'Slippery When Wet', category: 'warning', scenario: 'speed-trap',
@@ -608,8 +610,8 @@
       render: () => plate.circle(C.yellow,
         `<line x1="20" y1="20" x2="80" y2="80" stroke="${C.black}" stroke-width="6"/>
          <line x1="80" y1="20" x2="20" y2="80" stroke="${C.black}" stroke-width="6"/>
-         ${txt(30, 56, 'R', { size: 18, color: C.black, family: 'Arial Black' })}
-         ${txt(70, 56, 'R', { size: 18, color: C.black, family: 'Arial Black' })}`),
+         ${txt(30, 56, 'R', { size: 18, color: C.black })}
+         ${txt(70, 56, 'R', { size: 18, color: C.black })}`),
     },
     {
       id: 'low-clearance', name: 'Low Clearance', category: 'warning', scenario: 'wrong-way',
@@ -619,8 +621,8 @@
       mistakes: ['Trusting GPS for trucks.', 'Forgetting that pickup trucks with campers can exceed posted heights.'],
       design: 'Yellow diamond with the clearance height in feet-inches glyph form (e.g. 12\'-6").',
       render: () => plate.diamond(C.yellow,
-        txt(50, 38, 'LOW CLEARANCE', { size: 7, color: C.black, family: 'Arial Black' }) +
-        txt(50, 66, '12\'-6"', { size: 20, color: C.black, family: 'Arial Black' })),
+        txt(50, 38, 'LOW CLEARANCE', { size: 7, color: C.black }) +
+        txt(50, 66, '12\'-6"', { size: 20, color: C.black })),
     },
     {
       id: 'dead-end', name: 'Dead End', category: 'warning', scenario: 'wrong-way',
@@ -630,8 +632,8 @@
       mistakes: ['Speeding into a dead-end street.', 'Doing a U-turn across someone\'s lawn.'],
       design: 'Yellow diamond with the words DEAD END in black.',
       render: () => plate.diamond(C.yellow,
-        txt(50, 46, 'DEAD', { size: 14, color: C.black, family: 'Arial Black' }) +
-        txt(50, 66, 'END', { size: 14, color: C.black, family: 'Arial Black' })),
+        txt(50, 46, 'DEAD', { size: 14, color: C.black }) +
+        txt(50, 66, 'END', { size: 14, color: C.black })),
     },
     {
       id: 't-intersection', name: 'T-Intersection', category: 'warning', scenario: 'intersection-stop',
@@ -697,9 +699,9 @@
       mistakes: ['Speeding through because no workers are immediately visible.', 'Tailgating in a single-lane construction shift.'],
       design: 'Orange diamond — the dedicated color for temporary construction or work zone signs.',
       render: () => plate.diamond(C.orange,
-        txt(50, 36, 'ROAD', { size: 11, color: C.black, family: 'Arial Black' }) +
-        txt(50, 52, 'WORK', { size: 11, color: C.black, family: 'Arial Black' }) +
-        txt(50, 70, 'AHEAD', { size: 11, color: C.black, family: 'Arial Black' })),
+        txt(50, 36, 'ROAD', { size: 11, color: C.black }) +
+        txt(50, 52, 'WORK', { size: 11, color: C.black }) +
+        txt(50, 70, 'AHEAD', { size: 11, color: C.black })),
     },
     {
       id: 'flagger-ahead', name: 'Flagger Ahead', category: 'construction', scenario: 'intersection-stop',
@@ -735,7 +737,7 @@
       mistakes: ['Stopping following detour signs after one or two and getting lost.', 'Driving around barricades.'],
       design: 'Orange rectangle with the word DETOUR and an arrow pointing in the bypass direction.',
       render: () => plate.rectH(C.orange,
-        txt(38, 56, 'DETOUR', { size: 12, color: C.black, family: 'Arial Black' }) +
+        txt(38, 56, 'DETOUR', { size: 12, color: C.black }) +
         icon.arrowRight(80, 50, 0.7, C.black)),
     },
     {
@@ -754,7 +756,7 @@
            <path d="M 64 76 Q 50 60 36 60"/>
            <polyline points="42,54 36,60 42,66"/>
          </g>
-         ${txt(64, 50, '✕', { size: 22, color: C.red, family: 'Arial Black' })}`),
+         ${txt(64, 50, '✕', { size: 22, color: C.red })}`),
     },
 
     /* ============ GUIDE ============ */
@@ -766,7 +768,7 @@
       mistakes: ['Parking in ambulance bays.', 'Honking near a hospital entrance.'],
       design: 'Blue square with a white H — blue is the standard for motorist services.',
       render: () => plate.rectV(C.blue,
-        txt(50, 70, 'H', { size: 64, color: C.white, family: 'Arial Black' })),
+        txt(50, 70, 'H', { size: 64, color: C.white })),
     },
     {
       id: 'rest-area', name: 'Rest Area', category: 'guide', scenario: 'speed-trap',
@@ -776,9 +778,8 @@
       mistakes: ['Skipping rest areas on long drives because "I\'m almost there."'],
       design: 'Blue rectangle — the standard for motorist services.',
       render: () => plate.rectV(C.blue,
-        txt(50, 36, 'REST', { size: 14, color: C.white, family: 'Arial Black' }) +
-        txt(50, 60, 'AREA', { size: 14, color: C.white, family: 'Arial Black' }) +
-        txt(50, 84, '2 MI', { size: 11, color: C.white, family: 'Arial Black' })),
+        txt(50, 50, 'REST', { size: 16, color: C.white }) +
+        txt(50, 74, 'AREA', { size: 16, color: C.white })),
     },
   ];
 

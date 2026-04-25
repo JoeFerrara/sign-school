@@ -122,45 +122,72 @@
         <polyline points="-10,-18 -2,-26 6,-18"/>
       </g>`,
     pedestrian: (cx, cy, color = C.black) => `
-      <g transform="translate(${cx},${cy})" fill="${color}">
-        <circle cx="0" cy="-22" r="6"/>
-        <path d="M -4 -14 L -10 4 L -8 16 L -4 16 L -2 4 L 2 4 L 6 16 L 10 16 L 6 4 L 8 -10 L 12 -2 L 14 -4 L 8 -16 L 0 -14 Z"/>
+      <g transform="translate(${cx},${cy})" fill="${color}" stroke="${color}" stroke-linejoin="round" stroke-width="0.6">
+        <!-- head -->
+        <circle cx="-1" cy="-22" r="5.5"/>
+        <!-- torso, leaning slightly forward, with one arm swung forward and one back -->
+        <path d="M -7 -16 Q -10 -8 -7 -2 L 6 -2 Q 8 -8 12 -8 L 15 -11 L 9 -16 Z"/>
+        <!-- back leg, extended -->
+        <path d="M -7 -2 L -12 18 L -6 19 L -1 0 Z"/>
+        <!-- front leg, knee bent -->
+        <path d="M 1 -2 L 5 18 L 10 18 L 7 -2 Z"/>
       </g>`,
     bicycle: (cx, cy, color = C.black) => `
-      <g transform="translate(${cx},${cy})" stroke="${color}" stroke-width="3" fill="none">
-        <circle cx="-14" cy="10" r="10"/>
-        <circle cx="14" cy="10" r="10"/>
-        <path d="M -14 10 L 0 -8 L 14 10 M -2 -8 L 14 10 M -8 -16 L 4 -16 L 0 -8"/>
-        <circle cx="0" cy="-8" r="2" fill="${color}"/>
+      <g transform="translate(${cx},${cy})" stroke="${color}" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <!-- wheels -->
+        <circle cx="-15" cy="10" r="11"/>
+        <circle cx="15" cy="10" r="11"/>
+        <!-- diamond frame: rear hub to seat post, seat post to head tube, head tube to front hub, rear hub to head tube -->
+        <path d="M -15 10 L -2 -8 L 11 -8 M -15 10 L 11 -8 M -2 -8 L 15 10"/>
+        <!-- handlebar -->
+        <path d="M 8 -14 L 14 -14 M 11 -8 L 11 -14"/>
+        <!-- seat -->
+        <path d="M -6 -10 L 2 -10"/>
       </g>`,
     deer: (cx, cy, color = C.black) => `
       <g transform="translate(${cx},${cy})" fill="${color}">
-        <!-- body -->
-        <ellipse cx="0" cy="6" rx="22" ry="9"/>
-        <!-- legs -->
-        <rect x="-18" y="10" width="4" height="16"/>
-        <rect x="-10" y="10" width="4" height="16"/>
-        <rect x="6" y="10" width="4" height="16"/>
-        <rect x="14" y="10" width="4" height="16"/>
-        <!-- neck -->
-        <path d="M 16 0 L 22 -14 L 28 -14 L 26 -2 Z"/>
+        <!-- body, arched mid-leap -->
+        <path d="M -22 0 Q -8 -10 8 -8 Q 18 -6 24 2 L 22 10 Q 4 14 -16 12 Z"/>
+        <!-- back legs, kicked back -->
+        <path d="M -14 12 L -26 22 L -20 24 L -10 14 Z"/>
+        <path d="M -8 12 L -18 24 L -12 26 L -3 14 Z"/>
+        <!-- front legs, extended forward -->
+        <path d="M 14 10 L 22 24 L 26 22 L 18 8 Z"/>
+        <path d="M 20 6 L 30 18 L 32 14 L 24 4 Z"/>
+        <!-- neck reaching up -->
+        <path d="M 18 -2 L 26 -16 L 30 -14 L 24 -2 Z"/>
         <!-- head -->
-        <circle cx="27" cy="-16" r="5"/>
+        <ellipse cx="29" cy="-18" rx="5" ry="4"/>
+        <!-- snout -->
+        <ellipse cx="34" cy="-18" rx="3" ry="2"/>
         <!-- antlers -->
-        <path d="M 24 -22 L 22 -28 L 20 -24 M 28 -22 L 30 -28 L 32 -24" stroke="${color}" stroke-width="2" fill="none"/>
-        <!-- tail -->
-        <path d="M -22 0 L -28 -4 L -22 6 Z"/>
+        <path d="M 27 -22 L 25 -28 M 27 -22 L 30 -27 M 30 -22 L 32 -28 M 30 -22 L 34 -25" stroke="${color}" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- tail flicked up -->
+        <path d="M -22 -2 L -28 -6 L -22 4 Z"/>
       </g>`,
     cow: (cx, cy, color = C.black) => `
       <g transform="translate(${cx},${cy})" fill="${color}">
-        <ellipse cx="0" cy="6" rx="24" ry="11"/>
-        <rect x="-20" y="12" width="5" height="16"/>
-        <rect x="-12" y="12" width="5" height="16"/>
-        <rect x="6" y="12" width="5" height="16"/>
-        <rect x="14" y="12" width="5" height="16"/>
-        <!-- head -->
-        <ellipse cx="-26" cy="0" rx="10" ry="8"/>
-        <path d="M -34 -6 L -38 -10 M -34 -6 L -36 -2 M -18 -6 L -14 -10 M -18 -6 L -16 -2" stroke="${color}" stroke-width="2"/>
+        <!-- body -->
+        <ellipse cx="2" cy="2" rx="22" ry="10"/>
+        <!-- withers/shoulder hump -->
+        <path d="M -2 -8 Q 2 -12 8 -10 L 6 -2 Z"/>
+        <!-- legs -->
+        <rect x="-16" y="10" width="5" height="18"/>
+        <rect x="-7" y="10" width="5" height="18"/>
+        <rect x="7" y="10" width="5" height="18"/>
+        <rect x="15" y="10" width="5" height="18"/>
+        <!-- udder -->
+        <ellipse cx="0" cy="14" rx="4" ry="2.5"/>
+        <!-- neck/head joining body -->
+        <path d="M -20 -2 L -30 -2 L -34 0 L -34 6 L -30 10 L -20 10 Z"/>
+        <!-- snout -->
+        <ellipse cx="-34" cy="5" rx="3" ry="2.5"/>
+        <!-- horn -->
+        <path d="M -30 -2 L -33 -7 M -27 -2 L -27 -8" stroke="${color}" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- ear -->
+        <path d="M -25 -2 L -28 -6 L -22 -2 Z"/>
+        <!-- tail -->
+        <path d="M 22 -2 L 28 -6 L 30 -2 L 26 8 L 23 0 Z"/>
       </g>`,
     trafficLight: (cx, cy) => `
       <g transform="translate(${cx},${cy})">
@@ -238,7 +265,7 @@
       expected: ['Come to a complete stop — wheels not moving.', 'Stop at the painted line; if none, before the crosswalk; if none, before the intersection.', 'Yield to pedestrians and any cross traffic that has the right of way.', 'Proceed only when the path is clearly safe.'],
       mistakes: ['Performing a "California roll" — slowing without stopping.', 'Stopping past the line, blocking the crosswalk.', 'Assuming a 4-way stop is "first to arrive, first to go" without watching for cross traffic.'],
       design: 'The octagon shape is unique to stop signs so drivers can recognize it from the back or in poor visibility. Red signals required action.',
-      render: () => plate.octagon(txt(50, 58, 'STOP', { size: 22, color: C.white, family: 'Arial Black', letterSpacing: 1 })),
+      render: () => plate.octagon(txt(50, 60, 'STOP', { size: 28, color: C.white, family: 'Arial Black', letterSpacing: 1 })),
     },
     {
       id: 'yield', name: 'Yield', category: 'regulatory', scenario: 'intersection-yield',
@@ -292,7 +319,7 @@
       render: () => plate.rectV(C.white,
         txt(50, 26, 'SPEED', { size: 13, color: C.black, family: 'Arial Black' }) +
         txt(50, 44, 'LIMIT', { size: 13, color: C.black, family: 'Arial Black' }) +
-        txt(50, 80, '35', { size: 38, color: C.black, family: 'Arial Black' })),
+        txt(50, 78, '35', { size: 36, color: C.black, family: 'Arial Black', letterSpacing: 1 })),
     },
     {
       id: 'no-u-turn', name: 'No U-Turn', category: 'regulatory', scenario: 'wrong-way',
@@ -429,10 +456,13 @@
       where: 'Bridges (which freeze before roads), shaded curves, and roads with poor drainage.',
       expected: ['Slow down in any wet conditions.', 'Increase following distance.', 'Avoid sudden steering or braking inputs.'],
       mistakes: ['Driving at posted speed during the first rain after a dry spell — oil residue makes roads exceptionally slick.'],
-      design: 'Yellow diamond with a car silhouette and skid lines under the tires.',
+      design: 'Yellow diamond with a small car silhouette at top and serpentine skid lines trailing back from the rear tires.',
       render: () => plate.diamond(C.yellow,
-        icon.car(50, 50, C.black) +
-        icon.skidMarks(50, 72, C.black)),
+        icon.car(50, 38, C.black) +
+        `<g stroke="${C.black}" stroke-width="3" fill="none" stroke-linecap="round">
+           <path d="M 41 50 Q 36 58 41 66 Q 46 74 41 82"/>
+           <path d="M 59 50 Q 64 58 59 66 Q 54 74 59 82"/>
+         </g>`),
     },
     {
       id: 'stop-ahead', name: 'Stop Ahead', category: 'warning', scenario: 'intersection-stop',
@@ -587,10 +617,10 @@
       where: 'Bridges, tunnels, parking garages.',
       expected: ['Know your vehicle height — including roof racks and antennas.', 'Take an alternate route if uncertain.'],
       mistakes: ['Trusting GPS for trucks.', 'Forgetting that pickup trucks with campers can exceed posted heights.'],
-      design: 'Yellow diamond posting the height in feet and inches.',
+      design: 'Yellow diamond with the clearance height in feet-inches glyph form (e.g. 12\'-6").',
       render: () => plate.diamond(C.yellow,
-        txt(50, 46, '12 FT', { size: 14, color: C.black, family: 'Arial Black' }) +
-        txt(50, 66, '6 IN', { size: 14, color: C.black, family: 'Arial Black' })),
+        txt(50, 38, 'LOW CLEARANCE', { size: 7, color: C.black, family: 'Arial Black' }) +
+        txt(50, 66, '12\'-6"', { size: 20, color: C.black, family: 'Arial Black' })),
     },
     {
       id: 'dead-end', name: 'Dead End', category: 'warning', scenario: 'wrong-way',

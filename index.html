@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sign School — Learn US Street Signs</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark"></div>
+    <div class="brand-text">
+      <h1>Sign School</h1>
+      <p>Learn what U.S. street signs mean — and what happens when drivers ignore them.</p>
+    </div>
+  </div>
+  <nav class="modes" role="tablist" aria-label="App modes">
+    <button class="mode-btn active" data-mode="browse" role="tab" aria-selected="true">Browse</button>
+    <button class="mode-btn" data-mode="learn" role="tab" aria-selected="false">Learn</button>
+    <button class="mode-btn" data-mode="simulate" role="tab" aria-selected="false">Simulate</button>
+  </nav>
+</header>
+
+<main id="app">
+  <!-- Browse view -->
+  <section id="view-browse" class="view active">
+    <div class="filters">
+      <button class="filter-btn active" data-cat="all">All</button>
+      <button class="filter-btn" data-cat="regulatory">Regulatory</button>
+      <button class="filter-btn" data-cat="warning">Warning</button>
+      <button class="filter-btn" data-cat="school">School</button>
+      <button class="filter-btn" data-cat="construction">Construction</button>
+      <button class="filter-btn" data-cat="guide">Guide</button>
+      <input type="search" id="search" placeholder="Search signs…" aria-label="Search signs" />
+    </div>
+    <div id="gallery" class="gallery"></div>
+  </section>
+
+  <!-- Learn view -->
+  <section id="view-learn" class="view">
+    <div id="learn-empty" class="empty-state">
+      <p>Pick a sign from the <a href="#" data-go="browse">Browse</a> tab to see a full lesson.</p>
+    </div>
+    <div id="learn-content" class="learn-layout hidden">
+      <aside class="learn-sidebar">
+        <div id="learn-sign-art" class="learn-art"></div>
+        <h2 id="learn-name"></h2>
+        <span id="learn-category" class="cat-pill"></span>
+        <button id="learn-simulate" class="primary-btn">Try the Simulator →</button>
+      </aside>
+      <article class="learn-body">
+        <section>
+          <h3>What it means</h3>
+          <p id="learn-meaning"></p>
+        </section>
+        <section>
+          <h3>Where you'll see it</h3>
+          <p id="learn-where"></p>
+        </section>
+        <section>
+          <h3>What's expected of you</h3>
+          <ul id="learn-expected"></ul>
+        </section>
+        <section>
+          <h3>Common mistakes</h3>
+          <ul id="learn-mistakes"></ul>
+        </section>
+        <section>
+          <h3>Why the design?</h3>
+          <p id="learn-design"></p>
+        </section>
+      </article>
+    </div>
+  </section>
+
+  <!-- Simulate view -->
+  <section id="view-simulate" class="view">
+    <div class="sim-layout">
+      <aside class="sim-sidebar">
+        <h2>Simulator</h2>
+        <p class="muted">Pick a sign, then choose to obey it or ignore it. Watch what happens.</p>
+        <label for="sim-sign-select">Sign</label>
+        <select id="sim-sign-select"></select>
+        <div id="sim-sign-preview" class="sim-sign-preview"></div>
+        <p id="sim-scenario-desc" class="muted small"></p>
+        <div class="sim-actions">
+          <button id="sim-comply" class="primary-btn">Obey the sign</button>
+          <button id="sim-ignore" class="danger-btn">Ignore the sign</button>
+        </div>
+        <div id="sim-outcome" class="sim-outcome"></div>
+        <button id="sim-reset" class="secondary-btn hidden">Reset scene</button>
+      </aside>
+      <div class="sim-stage">
+        <canvas id="sim-canvas" width="900" height="640"></canvas>
+        <div id="sim-banner" class="sim-banner hidden"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>Educational tool — sign designs follow the U.S. <abbr title="Manual on Uniform Traffic Control Devices">MUTCD</abbr> conventions, simplified for learning. Always consult your state DMV handbook for the authoritative rules of the road.</p>
+</footer>
+
+<script src="js/signs.js"></script>
+<script src="js/scenarios.js"></script>
+<script src="js/simulator.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
